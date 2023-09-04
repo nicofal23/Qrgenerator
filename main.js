@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
     const generateButton = document.getElementById("generate-button");
+    const downloadButton = document.getElementById("download-button");
     const textInput = document.getElementById("text-input");
     const qrcodeDiv = document.getElementById("qrcode");
+    const qrCard = document.getElementById("qr-card");
 
     generateButton.addEventListener("click", function() {
         const text = textInput.value;
@@ -13,6 +15,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 width: 128,
                 height: 128
             });
+
+            // Mostrar el texto de emergencia
+            const qrText = document.getElementById("qr-text");
+            qrText.style.display = "block";
+
+            // Mostrar el botón de descarga
+            downloadButton.style.display = "block";
 
             // Guardar el código QR en el almacenamiento local
             const qrImage = qrcodeDiv.querySelector("img");
@@ -32,30 +41,17 @@ document.addEventListener("DOMContentLoaded", function() {
         qrImage.src = storedQR;
         qrcodeDiv.appendChild(qrImage);
     }
-});
-document.addEventListener("DOMContentLoaded", function() {
-    const generateButton = document.getElementById("generate-button");
-    const downloadButton = document.getElementById("download-button"); // Nuevo
-    const textInput = document.getElementById("text-input");
-    const qrcodeDiv = document.getElementById("qrcode");
 
-    generateButton.addEventListener("click", function() {
-        // ... Tu código existente para generar el código QR ...
-
-        // Mostrar el botón de descarga
-        downloadButton.style.display = "block";
-    });
-
-    // Nuevo: Manejar clic en el botón de descarga
+    // Manejar clic en el botón de descarga
     downloadButton.addEventListener("click", function() {
-        const qrImage = qrcodeDiv.querySelector("img");
-        if (qrImage) {
+        html2canvas(qrCard).then(function(canvas) {
+            // Convierte la card en una imagen
+
+            // Crea un enlace para descargar la imagen
             const link = document.createElement("a");
-            link.href = qrImage.src;
-            link.download = "qr_code.png";
+            link.href = canvas.toDataURL("image/png");
+            link.download = "qr_card.png";
             link.click();
-        }
+        });
     });
 });
-
-

@@ -14,9 +14,14 @@
             <input type="text" id="text-input" placeholder="Ingrese el texto">
             <button id="generate-button">Generar QR</button>
             <button id="download-button" style="display: none;">Descargar</button>
-            <div id="qrcode"></div>
+            <div class="card" id="qr-card">
+                <div id="qrcode"></div>
+                <p id="qr-text" style="display: none;">For emergency scan me</p>
+            </div>
+            <button id="download-button" style="display: none;">Descargar</button>
         </div>
-    </div>    
+    </div> 
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>   
     <script src="qrcode.min.js"></script>
     <script src="main.js"></script>
 </body>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&family=Roboto:ital,wght@1,100&family=Sedgwick+Ave+Display&display=swap');
 body {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;
@@ -19,6 +20,7 @@ body {
 
 h1 {
     margin-bottom: 20px;
+    font-family: 'Sedgwick Ave Display';
 }
 
 input[type="text"] {
@@ -83,3 +85,31 @@ button {
     margin-top: 20px;
 }
 
+.card {
+    background-color: white; /* Color de fondo de la tarjeta */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    margin-top: 20px; /* Margen superior */
+    text-align: center; /* Centrar el contenido */
+    max-width: 400px; /* Ancho máximo para la tarjeta */
+    margin: 10px auto; /* Centrar horizontalmente */
+}
+
+.card #qrcode {
+    margin-top: 10px; /* Espacio entre el código QR y el texto */
+}
+
+.card p {
+    display: none; /* Ocultar el texto de emergencia por defecto */
+    font-family: 'Poppins', sans-serif;
+}
+.card div {
+    background-color: white;
+}
+.card label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+.card input {
+    width: 80%;
+}
