@@ -1,9 +1,11 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     const generateButton = document.getElementById("generate-button");
     const downloadButton = document.getElementById("download-button");
     const textInput = document.getElementById("text-input");
     const qrcodeDiv = document.getElementById("qrcode");
-    const qrCard = document.getElementById("qr-card");
+
+    let downloadPending = false;  // Variable para controlar si la descarga está pendiente
 
     generateButton.addEventListener("click", function() {
         const text = textInput.value;
@@ -16,42 +18,71 @@ document.addEventListener("DOMContentLoaded", function() {
                 height: 128
             });
 
-            // Mostrar el texto de emergencia
-            const qrText = document.getElementById("qr-text");
-            qrText.style.display = "block";
-
             // Mostrar el botón de descarga
             downloadButton.style.display = "block";
-
-            // Guardar el código QR en el almacenamiento local
-            const qrImage = qrcodeDiv.querySelector("img");
-            if (qrImage) {
-                const qrDataURL = qrImage.src;
-                localStorage.setItem("qrCode", qrDataURL);
-            }
         } else {
-            alert("Por favor ingrese un texto para generar el código QR.");
+            // Reemplazar el alert con SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Por favor ingrese un texto para generar el código QR.',
+            });
         }
     });
 
-    // Recuperar el código QR almacenado al cargar la página
-    const storedQR = localStorage.getItem("qrCode");
-    if (storedQR) {
-        const qrImage = document.createElement("img");
-        qrImage.src = storedQR;
-        qrcodeDiv.appendChild(qrImage);
-    }
-
-    // Manejar clic en el botón de descarga
     downloadButton.addEventListener("click", function() {
-        html2canvas(qrCard).then(function(canvas) {
-            // Convierte la card en una imagen
+        const qrImage = qrcodeDiv.querySelector("img");
+        if (qrImage) {
+            // Reemplazar el prompt con SweetAlert
+            Swal.fire({
+                title: 'Ingrese un nombre para el archivo (sin extensión):',
+                input: 'text',
+                inputAttributes: {
+                    autocapitalize: 'off',
+                    style: 'width: 85%;'  // Agrega el estilo para el ancho del 85%
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Descargar',
+                cancelButtonText: 'Cancelar',
+                customClass: {
+                    input: 'swal-input-custom'  // Clase personalizada para el campo de entrada
+                }
+            }).then((result) => {
+                if (result.value) {
+                    // Marcar la descarga como pendiente
+                    downloadPending = true;
+                } else {
+                    // SweetAlert para manejar la cancelación
+                    Swal.fire('Descarga cancelada', '', 'info');
+                }
+            });
+        }
+    });
 
-            // Crea un enlace para descargar la imagen
-            const link = document.createElement("a");
-            link.href = canvas.toDataURL("image/png");
-            link.download = "qr_card.png";
-            link.click();
-        });
+    // Manejar el evento antes de que se abra el diálogo de descarga
+    window.addEventListener("beforeunload", function (e) {
+        if (downloadPending) {
+            // Cancelar la apertura del diálogo de descarga
+            const confirmationMessage = "¿Estás seguro de salir sin descargar?";
+            (e || window.event).returnValue = confirmationMessage;
+            return confirmationMessage;
+        }
+    });
+
+    // Manejar el evento cuando SweetAlert se cierra
+    document.body.addEventListener("click", function () {
+        if (downloadPending) {
+            // Crear y abrir el enlace de descarga
+            const qrImage = qrcodeDiv.querySelector("img");
+            if (qrImage) {
+                const link = document.createElement("a");
+                link.href = qrImage.src;
+                link.download = `${result.value}.png`;
+                link.click();
+            }
+
+            // Reiniciar la variable de descarga pendiente
+            downloadPending = false;
+        }
     });
 });

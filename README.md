@@ -1,6 +1,6 @@
 ### Generador de Codigo QR
 
-- Actualmente cursando JavaScript y quise probar hacer un generador de codigo QR para generar los mismos necesarios para la pagina que cree en el curso de Desarrollo Web
+- quise probar hacer un generador de codigo QR 
 
 # Funcionalidad
 

@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="card">
+        <div class="card"> 
             <h1>Generador de Código QR</h1>
             <label for="text-input">Texto a codificar:</label>
             <input type="text" id="text-input" placeholder="Ingrese el texto">
@@ -17,9 +17,9 @@
             <div class="card" id="qr-card">
                 <div id="qrcode"></div>
             </div>
-            <button id="download-button" style="display: none;">Descargar</button>
         </div>
     </div> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>   
     <script src="qrcode.min.js"></script>
     <script src="main.js"></script>

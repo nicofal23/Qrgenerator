@@ -114,3 +114,14 @@ button {
 .card input {
     width: 80%;
 }
+
+/* Estilo para el marco blanco sólido de 1 píxel */
+#qrcode {
+    border: 1px solid white;
+    display: inline-block;
+}
+
+
+.swal2-input {
+    width: 85%;
+}

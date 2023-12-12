@@ -10,22 +10,7 @@
  */
 var QRCode;
 
-(function () {
-	//---------------------------------------------------------------------
-	// QRCode for JavaScript
-	//
-	// Copyright (c) 2009 Kazuhiko Arase
-	//
-	// URL: http://www.d-project.com/
-	//
-	// Licensed under the MIT license:
-	//   http://www.opensource.org/licenses/mit-license.php
-	//
-	// The word "QR Code" is registered trademark of 
-	// DENSO WAVE INCORPORATED
-	//   http://www.denso-wave.com/qrcode/faqpatent-e.html
-	//
-	//---------------------------------------------------------------------
+(function () { 
 	function QR8bitByte(data) {
 		this.mode = QRMode.MODE_8BIT_BYTE;
 		this.data = data;
@@ -673,13 +658,6 @@ var QRCode;
 		this.makeImage();
 	};
 
-	/**
-	 * Make the Image from Canvas element
-	 * - It occurs automatically
-	 * - Android below 3 doesn't support Data-URI spec.
-	 * 
-	 * @private
-	 */
 	QRCode.prototype.makeImage = function () {
 		if (typeof this._oDrawing.makeImage == "function" && (!this._android || this._android >= 3)) {
 			this._oDrawing.makeImage();
